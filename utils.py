@@ -201,8 +201,11 @@ def process_journal(
             if yaml:
                 new_entry.append("---\n")
                 for name, description in metadata:
-                    if name in ["GPS", "Location", "Tags"]:
+                    if name in ["GPS", "Location"]:
                         new_entry.append(f"{name.lower().replace(' ', '_')}: {description}\n")
+                    if name in ["Tags"]:
+                        desc = description.replace('#', '')
+                        new_entry.append(f"{name.lower().replace(' ', '_')}: {desc}\n")
                 new_entry.append("---\n\n")
 
             # Add date as page header, removing time if it's 12 midday as time obviously not read
